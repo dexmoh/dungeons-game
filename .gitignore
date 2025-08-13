@@ -1,0 +1,9 @@
+# Project ignores.
+assets/
+
+# Godot 4+ specific ignores.
+.godot/
+/android/
+
+# Code editor ignores.
+.vscode/
