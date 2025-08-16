@@ -1,12 +1,90 @@
-[gd_scene load_steps=3 format=3 uid="uid://buhpr64dbccw7"]
+[gd_scene load_steps=14 format=4 uid="uid://buhpr64dbccw7"]
 
+[ext_resource type="Script" uid="uid://dttb1sj1yaq36" path="res://scripts/world_manager.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://bknk8yg4qb763" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://csba4rofuhq2l" path="res://scripts/camera_controller.gd" id="2_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://d0f1axcw8pgqr" path="res://assets/textures/base_tiles.png" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://hrxnm22l8wwa" path="res://scenes/interactable_test.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://dbe5v7545bobh" path="res://scenes/door.tscn" id="5_71j4m"]
+[ext_resource type="Texture2D" uid="uid://et0dqxxlo3rs" path="res://assets/selection_squares.png" id="6_qfnet"]
+[ext_resource type="FontFile" uid="uid://cskl53c8j7mek" path="res://assets/fonts/RasterForgeRegular-JpBgm.ttf" id="8_4mrxx"]
+[ext_resource type="Shader" uid="uid://c58515jp4xtpg" path="res://scripts/shaders/crt_effect.gdshader" id="9_7r4gi"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0juu"]
+texture = ExtResource("3_4wyf3")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[node name="Player" parent="." instance=ExtResource("1_nnsk1")]
+[sub_resource type="TileSet" id="TileSet_71j4m"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_k0juu")
 
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("camera_focus")]
+[sub_resource type="LabelSettings" id="LabelSettings_i7141"]
+font = ExtResource("8_4mrxx")
+shadow_color = Color(1, 1, 1, 0.160784)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7kh3"]
+shader = ExtResource("9_7r4gi")
+shader_parameter/scanline_color = Color(0.2765, 0.3792, 0.79, 1)
+shader_parameter/flicker_color = Color(0, 0, 0, 1)
+shader_parameter/scanlines_count = 20.0
+shader_parameter/scanlines_intensity = 0.1
+shader_parameter/flicker_speed = 15.0
+shader_parameter/flicker_intensity = 0.03
+shader_parameter/color_offset = 1.5
+shader_parameter/blur = 0.15
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_i7141")
+player_scene = ExtResource("1_nnsk1")
+camera = NodePath("Camera")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 script = ExtResource("2_rwgxs")
-camera_focus = NodePath("../Player")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD7////AAAAAAAAAAD//wQAAAAAAAAAAAD///v/AAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wAAAAAAAAAAAAD7//7/AAAAAAAAAAD7//3/AAAAAAAAAAD7//z/AAAAAAAAAAD7//v/AAAAAAAAAAD8//v/AAAAAAAAAAD9//v/AAAAAAAAAAD+//v/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPv/AAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAP7/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAPv/AAAAAAAAAAADAPv/AAAAAAAAAAD+//f/AAAAAAAAAAD///f/AAAAAAAAAAAAAPf/AAAAAAAAAAABAPf/AAAAAAAAAAACAPf/AAAAAAAAAAADAPf/AAAAAAAAAAAEAPf/AAAAAAAAAAAEAPj/AAAAAAAAAAAEAPn/AAAAAAAAAAAEAPr/AAAAAAAAAAD+//r/AAAAAAAAAAD+//n/AAAAAAAAAAD+//j/AAAAAAAAAAD9/wIAAAAAAAAAAAACAAIAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_71j4m")
+
+[node name="InteractableTest" parent="." instance=ExtResource("4_k0juu")]
+position = Vector2(-8, 24)
+
+[node name="Door" parent="." instance=ExtResource("5_71j4m")]
+position = Vector2(40, -72)
+
+[node name="InteractionSquareSprite" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(-8, -8)
+texture = ExtResource("6_qfnet")
+centered = false
+
+[node name="InteractionLabel" type="Label" parent="InteractionSquareSprite"]
+z_index = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -24.0
+offset_right = 272.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.3, 0.3)
+size_flags_vertical = 8
+text = "[E] Interact"
+label_settings = SubResource("LabelSettings_i7141")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_w7kh3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

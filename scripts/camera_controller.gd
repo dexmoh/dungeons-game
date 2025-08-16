@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var camera_focus: Node2D
+@export var focus: Node2D
 @export var movement_smoothing_speed: float = 8.0
 @export var zoom_speed: float = 10.0
 @export var min_zoom: float = 0.5
@@ -19,8 +19,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Move camera towards focus.
-	if !is_panning:
-		position = position.slerp(camera_focus.global_position, movement_smoothing_speed * delta)
+	if !is_panning and focus:
+		position = position.slerp(focus.global_position, movement_smoothing_speed * delta)
 	
 	# Zoom camera.
 	if Input.is_action_just_pressed("zoom_in"):
