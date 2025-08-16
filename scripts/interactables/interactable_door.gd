@@ -1,11 +1,12 @@
 extends Interactable
 
 @export var is_open: bool = false
+@export var door_sprite: Sprite2D
 
-@onready var door_open_sprite: Sprite2D = $DoorOpenSprite
-@onready var door_closed_sprite: Sprite2D = $DoorClosedSprite
+var tile_size: Vector2
 
 func _ready() -> void:
+	tile_size = ProjectSettings.get_setting("global/tile_size")
 	open_and_close()
 
 func interact(_src: Node2D):
@@ -16,14 +17,12 @@ func open_and_close():
 	if is_open:
 		# Close the door.
 		is_open = false
-		door_closed_sprite.show()
-		door_open_sprite.hide()
+		door_sprite.region_rect.position.x -= tile_size.x
 		label_text = "Open"
 		set_collision_layer_value(1, true)
 	else:
 		# Open the door.
 		is_open = true
-		door_closed_sprite.hide()
-		door_open_sprite.show()
+		door_sprite.region_rect.position.x += tile_size.x
 		label_text = "Close"
 		set_collision_layer_value(1, false)

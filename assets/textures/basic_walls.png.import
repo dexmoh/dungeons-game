@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://et0dqxxlo3rs"
-path="res://.godot/imported/selection_squares.png-2dd957854dc906e0f6a633876fa63e32.ctex"
+uid="uid://d0f1axcw8pgqr"
+path="res://.godot/imported/basic_walls.png-d722c1e2a2e13db1274f91ea4d1079dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/selection_squares.png"
-dest_files=["res://.godot/imported/selection_squares.png-2dd957854dc906e0f6a633876fa63e32.ctex"]
+source_file="res://assets/textures/basic_walls.png"
+dest_files=["res://.godot/imported/basic_walls.png-d722c1e2a2e13db1274f91ea4d1079dd.ctex"]
 
 [params]
 
