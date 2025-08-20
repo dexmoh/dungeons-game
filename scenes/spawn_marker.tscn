@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhou1tccnocom"]
+
+[ext_resource type="Texture2D" uid="uid://bghupjd4ndlc4" path="res://assets/textures/markers.png" id="1_yjid7"]
+[ext_resource type="Script" uid="uid://drjbdtcwbfa6a" path="res://scripts/spawn_marker.gd" id="2_rtc4f"]
+
+[node name="SpawnMarker" type="Sprite2D" groups=["spawn_marker"]]
+texture = ExtResource("1_yjid7")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+script = ExtResource("2_rtc4f")

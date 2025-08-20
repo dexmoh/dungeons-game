@@ -24,6 +24,12 @@ window/size/viewport_height=720
 
 tile_size=Vector2(16, 16)
 
+[global_group]
+
+spawn_marker="A marker that denotes the default spawn location of a player in a level."
+player="This is you. :)"
+portal_marker="Marker used for linking levels together through portals."
+
 [input]
 
 move_up={
@@ -79,4 +85,4 @@ interact={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.0616, 0.0903467, 0.14, 1)

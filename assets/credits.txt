@@ -1,6 +1,8 @@
 # Textures
 
 # Audio
+- Main Door Opening/Closing by freesound_community -- https://pixabay.com/sound-effects/main-door-opening-closing-38280/
+- Dungeon ambience by ??
 
 # Fonts
 - Raster Forge Font by GGBotNet -- https://www.fontspace.com/raster-forge-font-f135159
