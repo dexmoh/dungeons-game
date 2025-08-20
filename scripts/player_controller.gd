@@ -48,14 +48,26 @@ func _physics_process(_delta: float) -> void:
 
 	interaction_square_sprite.hide()
 
-	# Check for interactions.
+	# We check for interactions.
 	if distance_to_mouse <= interaction_distance:
 		var space_state = get_world_2d().direct_space_state
 		interaction_point_query.position = mouse_pos
 		var results = space_state.intersect_point(interaction_point_query)
 
+		# Is the object we're hovering over interactable?
 		for result in results:
 			if result.collider is Interactable and result.collider.is_active:
+				# It is! But can we reach it?
+				var raycast_query := PhysicsRayQueryParameters2D.create(
+					global_position,
+					mouse_pos,
+					0b1
+				)
+				var raycast_result := space_state.intersect_ray(raycast_query)
+				if raycast_result and raycast_result.collider != result.collider:
+					# But alas, there is an obstacle...
+					break
+
 				interaction_square_sprite.global_position = mouse_grid_pos * Globals.tile_size
 				interaction_square_sprite.show()
 				result.collider.on_focus(self)
