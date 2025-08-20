@@ -4,4 +4,4 @@ class_name SpawnMarker
 extends Sprite2D
 
 func _ready() -> void:
-	hide()
+	queue_free()

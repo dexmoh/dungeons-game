@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5aewrm5subvx"
-path="res://.godot/imported/player_run.png-2a007d6034caaad95ac4a5e19f92d152.ctex"
+uid="uid://c04m5hne1l4m8"
+path="res://.godot/imported/melee_weapons.png-0aa0e92837a1b0858e1574ce9cdcf9dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/player_run.png"
-dest_files=["res://.godot/imported/player_run.png-2a007d6034caaad95ac4a5e19f92d152.ctex"]
+source_file="res://assets/textures/items/weapons/melee_weapons.png"
+dest_files=["res://.godot/imported/melee_weapons.png-0aa0e92837a1b0858e1574ce9cdcf9dc.ctex"]
 
 [params]
 

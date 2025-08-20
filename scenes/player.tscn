@@ -1,8 +1,12 @@
-[gd_scene load_steps=42 format=3 uid="uid://bknk8yg4qb763"]
+[gd_scene load_steps=50 format=3 uid="uid://bknk8yg4qb763"]
 
-[ext_resource type="Texture2D" uid="uid://cykfwchqcwwyk" path="res://assets/textures/player_idle.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cykfwchqcwwyk" path="res://assets/textures/mobs/player/player_idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://c0f44wvamc88c" path="res://scripts/player_controller.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://b5aewrm5subvx" path="res://assets/textures/player_run.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://b5aewrm5subvx" path="res://assets/textures/mobs/player/player_run.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://c04m5hne1l4m8" path="res://assets/textures/items/weapons/melee_weapons.png" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://dcy2inrflm616" path="res://scripts/weapon.gd" id="4_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://b6nux7a8573i2" path="res://assets/audio/weapons/weapon_swing_1.mp3" id="6_fjrip"]
+[ext_resource type="AudioStream" uid="uid://bhs3d73yjp1s" path="res://assets/audio/weapons/weapon_swing_2.mp3" id="7_smehm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -292,6 +296,46 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(13, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
+size = Vector2(21, 4)
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "attack"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [-0.785398, 0.785398]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
+_data = {
+&"RESET": SubResource("Animation_tuyoq"),
+&"attack": SubResource("Animation_qlg0r")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_g2els")
@@ -305,3 +349,45 @@ frame_progress = 0.943907
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_3vyb7")
+
+[node name="Sword" type="Node2D" parent="."]
+script = ExtResource("4_qlg0r")
+
+[node name="Pivot" type="Node2D" parent="Sword"]
+
+[node name="Sprite" type="Sprite2D" parent="Sword/Pivot"]
+position = Vector2(18, 0)
+rotation = 0.785398
+scale = Vector2(1, 1)
+texture = ExtResource("4_dqkch")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="SwingSound1" type="AudioStreamPlayer2D" parent="Sword/Pivot/Sprite"]
+position = Vector2(7.27208, -7.27208)
+scale = Vector2(1, 1)
+stream = ExtResource("6_fjrip")
+bus = &"SFX"
+
+[node name="SwingSound2" type="AudioStreamPlayer2D" parent="Sword/Pivot/Sprite"]
+position = Vector2(7.27208, -7.27208)
+scale = Vector2(1, 1)
+stream = ExtResource("7_smehm")
+bus = &"SFX"
+
+[node name="HitBox" type="Area2D" parent="Sword/Pivot/Sprite"]
+position = Vector2(-12.7279, 12.7279)
+rotation = -0.785398
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Pivot/Sprite/HitBox"]
+position = Vector2(18.5, 0)
+shape = SubResource("RectangleShape2D_qlg0r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sword"]
+libraries = {
+&"": SubResource("AnimationLibrary_fjrip")
+}
+
+[connection signal="animation_finished" from="Sword/AnimationPlayer" to="Sword" method="_on_animation_player_animation_finished"]
