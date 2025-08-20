@@ -6,10 +6,7 @@ extends Interactable
 @onready var open_sfx: AudioStreamPlayer2D = $DoorOpenAudio
 @onready var close_sfx: AudioStreamPlayer2D = $DoorCloseAudio
 
-var tile_size: Vector2
-
 func _ready() -> void:
-	tile_size = ProjectSettings.get_setting("global/tile_size")
 	if is_open:
 		is_open = !is_open
 		open_and_close()
@@ -22,14 +19,14 @@ func open_and_close():
 	if is_open:
 		# Close the door.
 		is_open = false
-		door_sprite.region_rect.position.x -= tile_size.x
+		door_sprite.region_rect.position.x -= Globals.tile_size.x
 		label_text = "Open"
 		close_sfx.play()
 		set_collision_layer_value(1, true)
 	else:
 		# Open the door.
 		is_open = true
-		door_sprite.region_rect.position.x += tile_size.x
+		door_sprite.region_rect.position.x += Globals.tile_size.x
 		label_text = "Close"
 		open_sfx.play()
 		set_collision_layer_value(1, false)

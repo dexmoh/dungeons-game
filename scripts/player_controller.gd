@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 100
-@export var interaction_distance_radius: float = 32
+@export var interaction_distance: float = 2.3
 
 var interaction_point_query: PhysicsPointQueryParameters2D
-var tile_size: Vector2
 var interaction_square_sprite: Sprite2D
 var interaction_label: Label
 
@@ -15,8 +14,6 @@ func _ready() -> void:
 	interaction_point_query.collide_with_areas = true
 	interaction_point_query.collide_with_bodies = true
 	interaction_point_query.collision_mask = 0b10
-
-	tile_size = ProjectSettings.get_setting("global/tile_size")
 
 func _physics_process(_delta: float) -> void:
 	# Move player.
@@ -46,19 +43,20 @@ func _physics_process(_delta: float) -> void:
 
 	# Interactions.
 	var mouse_pos: Vector2 = get_global_mouse_position()
-	var distance_to_mouse: float = global_position.distance_to(mouse_pos)
+	var mouse_grid_pos: Vector2 = Globals.get_grid_position(mouse_pos)
+	var distance_to_mouse := Globals.get_grid_position(global_position).distance_to(mouse_grid_pos)
 
 	interaction_square_sprite.hide()
 
 	# Check for interactions.
-	if distance_to_mouse <= interaction_distance_radius:
+	if distance_to_mouse <= interaction_distance:
 		var space_state = get_world_2d().direct_space_state
 		interaction_point_query.position = mouse_pos
 		var results = space_state.intersect_point(interaction_point_query)
 
 		for result in results:
 			if result.collider is Interactable and result.collider.is_active:
-				interaction_square_sprite.global_position = (mouse_pos / tile_size).floor() * tile_size
+				interaction_square_sprite.global_position = mouse_grid_pos * Globals.tile_size
 				interaction_square_sprite.show()
 				result.collider.on_focus(self)
 				interaction_label.text = "[E] " + result.collider.label_text
