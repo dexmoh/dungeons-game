@@ -4,12 +4,13 @@ extends CharacterBody2D
 @export var interaction_distance: float = 2.3
 
 var interaction_point_query: PhysicsPointQueryParameters2D
-var interaction_square_sprite: Sprite2D
-var interaction_label: Label
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var interaction_marker: AnimatedSprite2D = get_tree().get_first_node_in_group("interaction_marker")
+@onready var interaction_label: Label = interaction_marker.find_child("InteractionLabel")
 
 func _ready() -> void:
+	# Query we'll reuse for interactions.
 	interaction_point_query = PhysicsPointQueryParameters2D.new()
 	interaction_point_query.collide_with_areas = true
 	interaction_point_query.collide_with_bodies = true
@@ -46,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 	var mouse_grid_pos: Vector2 = Globals.get_grid_position(mouse_pos)
 	var distance_to_mouse := Globals.get_grid_position(global_position).distance_to(mouse_grid_pos)
 
-	interaction_square_sprite.hide()
+	interaction_marker.hide()
 
 	# We check for interactions.
 	if distance_to_mouse <= interaction_distance:
@@ -68,8 +69,8 @@ func _physics_process(_delta: float) -> void:
 					# But alas, there is an obstacle...
 					break
 
-				interaction_square_sprite.global_position = mouse_grid_pos * Globals.tile_size
-				interaction_square_sprite.show()
+				interaction_marker.global_position = mouse_grid_pos * Globals.tile_size
+				interaction_marker.show()
 				result.collider.on_focus(self)
 				interaction_label.text = "[E] " + result.collider.label_text
 

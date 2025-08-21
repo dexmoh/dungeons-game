@@ -12,13 +12,8 @@ func _ready() -> void:
 	current_level = default_level_scene.instantiate()
 	add_child(current_level)
 
-	# Spawn the player.
+	# Add the player.
 	player = player_scene.instantiate()
-
-	# Setup player specific variables
-	player.interaction_square_sprite = $InteractionSquareSprite
-	player.interaction_label = $InteractionSquareSprite/InteractionLabel
-
 	add_child(player)
 
 	# Spawn the player.

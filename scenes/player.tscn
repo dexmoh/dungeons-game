@@ -299,6 +299,21 @@ size = Vector2(13, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
 size = Vector2(21, 4)
 
+[sub_resource type="Animation" id="Animation_tuyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_qlg0r"]
 resource_name = "attack"
 length = 0.25
@@ -313,21 +328,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [-0.785398, 0.785398]
-}
-
-[sub_resource type="Animation" id="Animation_tuyoq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
@@ -358,20 +358,17 @@ script = ExtResource("4_qlg0r")
 [node name="Sprite" type="Sprite2D" parent="Sword/Pivot"]
 position = Vector2(18, 0)
 rotation = 0.785398
-scale = Vector2(1, 1)
 texture = ExtResource("4_dqkch")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
 [node name="SwingSound1" type="AudioStreamPlayer2D" parent="Sword/Pivot/Sprite"]
 position = Vector2(7.27208, -7.27208)
-scale = Vector2(1, 1)
 stream = ExtResource("6_fjrip")
 bus = &"SFX"
 
 [node name="SwingSound2" type="AudioStreamPlayer2D" parent="Sword/Pivot/Sprite"]
 position = Vector2(7.27208, -7.27208)
-scale = Vector2(1, 1)
 stream = ExtResource("7_smehm")
 bus = &"SFX"
 

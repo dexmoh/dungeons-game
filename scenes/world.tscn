@@ -1,17 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://buhpr64dbccw7"]
+[gd_scene load_steps=15 format=3 uid="uid://buhpr64dbccw7"]
 
 [ext_resource type="Script" uid="uid://dttb1sj1yaq36" path="res://scripts/world_manager.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://bknk8yg4qb763" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://ddfsnoen4op6c" path="res://scenes/levels/runtime_level.tscn" id="2_i7141"]
 [ext_resource type="Script" uid="uid://csba4rofuhq2l" path="res://scripts/camera_controller.gd" id="2_rwgxs"]
-[ext_resource type="Texture2D" uid="uid://bghupjd4ndlc4" path="res://assets/textures/markers.png" id="6_4mrxx"]
+[ext_resource type="Texture2D" uid="uid://ioor3unp3m0u" path="res://assets/textures/interaction_marker.png" id="6_i7141"]
 [ext_resource type="FontFile" uid="uid://cskl53c8j7mek" path="res://assets/fonts/RasterForgeRegular-JpBgm.ttf" id="8_4mrxx"]
 [ext_resource type="Shader" uid="uid://c58515jp4xtpg" path="res://scripts/shaders/crt_effect.gdshader" id="9_7r4gi"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_i7141"]
-font = ExtResource("8_4mrxx")
-font_color = Color(0.388235, 0.607843, 1, 1)
-shadow_color = Color(0.39, 0.613667, 1, 0.215686)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w7kh3"]
 shader = ExtResource("9_7r4gi")
@@ -23,6 +18,47 @@ shader_parameter/flicker_speed = 15.0
 shader_parameter/flicker_intensity = 0.03
 shader_parameter/color_offset = 1.5
 shader_parameter/blur = 0.15
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mrxx"]
+atlas = ExtResource("6_i7141")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r4gi"]
+atlas = ExtResource("6_i7141")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7kh3"]
+atlas = ExtResource("6_i7141")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3hyu"]
+atlas = ExtResource("6_i7141")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q5onr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mrxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r4gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7kh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3hyu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i7141"]
+font = ExtResource("8_4mrxx")
+font_color = Color(0.388235, 0.607843, 1, 1)
+shadow_color = Color(0.39, 0.613667, 1, 0.215686)
 
 [node name="World" type="Node" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_i7141")
@@ -36,40 +72,43 @@ script = ExtResource("2_rwgxs")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Camera"]
 
-[node name="InteractionSquareSprite" type="Sprite2D" parent="."]
-z_index = 2
-position = Vector2(-8, -8)
-texture = ExtResource("6_4mrxx")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
-
-[node name="InteractionLabel" type="Label" parent="InteractionSquareSprite"]
-z_index = 2
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -24.0
-offset_right = 272.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.3, 0.3)
-size_flags_vertical = 8
-text = "[E] Interact"
-label_settings = SubResource("LabelSettings_i7141")
-horizontal_alignment = 1
-vertical_alignment = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="CRT_Effect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_w7kh3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GameUI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractionMarker" type="AnimatedSprite2D" parent="GameUI" groups=["interaction_marker"]]
+sprite_frames = SubResource("SpriteFrames_q5onr")
+autoplay = "default"
+frame_progress = 0.619702
+centered = false
+
+[node name="InteractionLabel" type="Label" parent="GameUI/InteractionMarker"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = -10.0
+offset_right = 272.0
+offset_bottom = 13.0
+grow_horizontal = 2
+scale = Vector2(0.3, 0.3)
+size_flags_vertical = 8
+text = "[E] Interact"
+label_settings = SubResource("LabelSettings_i7141")
+horizontal_alignment = 1
+vertical_alignment = 2

@@ -6,5 +6,5 @@
 [node name="SpawnMarker" type="Sprite2D" groups=["spawn_marker"]]
 texture = ExtResource("1_yjid7")
 region_enabled = true
-region_rect = Rect2(16, 0, 16, 16)
+region_rect = Rect2(0, 0, 16, 16)
 script = ExtResource("2_rtc4f")
