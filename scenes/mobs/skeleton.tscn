@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://c4d4wct4t154q"]
+
+[ext_resource type="Texture2D" uid="uid://pewpox3rcuxn" path="res://assets/textures/mobs/skeleton.png" id="1_qxc4t"]
+[ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/health_component.tscn" id="2_l7dce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsv6m"]
+size = Vector2(6, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7dce"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34uab"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0p64"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kycrw"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh3l3"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmtsy"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b25yd"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d760r"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m40r2"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3j7l"]
+atlas = ExtResource("1_qxc4t")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_57td1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7dce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34uab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0p64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kycrw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh3l3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmtsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b25yd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d760r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m40r2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3j7l")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Skeleton" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_gsv6m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_57td1")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_l7dce")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HealthComponent"]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_gsv6m")

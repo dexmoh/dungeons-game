@@ -8,6 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://b6nux7a8573i2" path="res://assets/audio/weapons/weapon_swing_1.mp3" id="6_fjrip"]
 [ext_resource type="AudioStream" uid="uid://bhs3d73yjp1s" path="res://assets/audio/weapons/weapon_swing_2.mp3" id="7_smehm"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
+radius = 6.5
+height = 14.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
 region = Rect2(32, 112, 16, 16)
@@ -293,9 +297,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(13, 14)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
 size = Vector2(21, 4)
 
@@ -340,15 +341,15 @@ _data = {
 motion_mode = 1
 script = ExtResource("1_g2els")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("CapsuleShape2D_fjrip")
+
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tuyoq")
 animation = &"idle_down"
 autoplay = "idle_down"
 frame_progress = 0.943907
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_3vyb7")
 
 [node name="Sword" type="Node2D" parent="."]
 script = ExtResource("4_qlg0r")
@@ -387,4 +388,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_fjrip")
 }
 
+[connection signal="area_entered" from="Sword/Pivot/Sprite/HitBox" to="Sword" method="_on_hit_box_area_entered"]
 [connection signal="animation_finished" from="Sword/AnimationPlayer" to="Sword" method="_on_animation_player_animation_finished"]

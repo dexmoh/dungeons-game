@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://btgve1kj6ecxh"]
+
+[ext_resource type="Script" uid="uid://c1tgligl1n6ud" path="res://scripts/barrel.gd" id="1_1kn84"]
+[ext_resource type="Texture2D" uid="uid://bwwqnnjknwy5h" path="res://assets/textures/objects/decorations.png" id="1_ipomw"]
+[ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/health_component.tscn" id="2_1kn84"]
+[ext_resource type="AudioStream" uid="uid://b7wlkw44i43ce" path="res://assets/audio/wood_hit.wav" id="4_kldud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipomw"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kn84"]
+size = Vector2(14, 15)
+
+[node name="Barrel" type="StaticBody2D"]
+script = ExtResource("1_1kn84")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ipomw")
+
+[node name="HealthComponent2" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_1kn84")]
+sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent2"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_1kn84")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ipomw")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kldud")
+bus = &"SFX"
+
+[node name="DestructionParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.67
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+damping_min = 90.0
+damping_max = 100.0
+color = Color(0.447059, 0.27451, 0.180392, 1)
+
+[connection signal="damaged" from="HealthComponent2" to="." method="_on_health_component_damaged"]
+[connection signal="died" from="HealthComponent2" to="." method="_on_health_component_died"]

@@ -1,7 +1,9 @@
 # Textures
+- Skeleton by sovietshnuckums -- https://sovietshnuckums.itch.io/programmer-art
 
 # Audio
 - Main Door Opening/Closing by freesound_community -- https://pixabay.com/sound-effects/main-door-opening-closing-38280/
+- Wood Hit by u_kir90yky9e -- https://pixabay.com/sound-effects/woodhitsfx-390569/
 - Dungeon ambience by ??
 - Weapon Swing by ??
 
