@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://buhpr64dbccw7"]
 
 [ext_resource type="Script" uid="uid://dttb1sj1yaq36" path="res://scripts/world_manager.gd" id="1_i7141"]
-[ext_resource type="PackedScene" uid="uid://bknk8yg4qb763" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://bknk8yg4qb763" path="res://scenes/entities/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://ddfsnoen4op6c" path="res://scenes/levels/runtime_level.tscn" id="2_i7141"]
 [ext_resource type="Script" uid="uid://csba4rofuhq2l" path="res://scripts/camera_controller.gd" id="2_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://ioor3unp3m0u" path="res://assets/textures/interaction_marker.png" id="6_i7141"]
@@ -71,6 +71,7 @@ zoom = Vector2(4, 4)
 script = ExtResource("2_rwgxs")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Camera"]
+current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

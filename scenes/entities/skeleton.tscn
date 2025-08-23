@@ -1,7 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4d4wct4t154q"]
+[gd_scene load_steps=18 format=3 uid="uid://c4d4wct4t154q"]
 
-[ext_resource type="Texture2D" uid="uid://pewpox3rcuxn" path="res://assets/textures/mobs/skeleton.png" id="1_qxc4t"]
-[ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/health_component.tscn" id="2_l7dce"]
+[ext_resource type="Script" uid="uid://cpspnvqoktid6" path="res://scripts/entities/skeleton.gd" id="1_34uab"]
+[ext_resource type="Texture2D" uid="uid://pewpox3rcuxn" path="res://assets/textures/entities/skeleton.png" id="1_qxc4t"]
+[ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/components/health_component.tscn" id="2_l7dce"]
+[ext_resource type="AudioStream" uid="uid://cbk2qlppdecc8" path="res://assets/audio/entity_hit.wav" id="3_r3082"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7dce"]
+radius = 3.0
+height = 12.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsv6m"]
 size = Vector2(6, 12)
@@ -90,18 +96,32 @@ animations = [{
 }]
 
 [node name="Skeleton" type="CharacterBody2D"]
+script = ExtResource("1_34uab")
+movement_speed = 40.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_l7dce")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_l7dce")]
+invincible = true
+hit_sound_stream = ExtResource("3_r3082")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HealthComponent"]
 shape = SubResource("RectangleShape2D_gsv6m")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+debug_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_57td1")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
+offset = Vector2(-1, -2)
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_l7dce")]
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HealthComponent"]
-position = Vector2(1, 2)
-shape = SubResource("RectangleShape2D_gsv6m")
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

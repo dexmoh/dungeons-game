@@ -7,3 +7,7 @@ script = ExtResource("1_a1tyf")
 metadata/_custom_type_script = "uid://dkdx27cmjsw6n"
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+max_distance = 512.0
+bus = &"SFX"

@@ -1,8 +1,8 @@
 [gd_scene load_steps=50 format=3 uid="uid://bknk8yg4qb763"]
 
-[ext_resource type="Texture2D" uid="uid://cykfwchqcwwyk" path="res://assets/textures/mobs/player/player_idle.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cykfwchqcwwyk" path="res://assets/textures/entities/player/player_idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://c0f44wvamc88c" path="res://scripts/player_controller.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://b5aewrm5subvx" path="res://assets/textures/mobs/player/player_run.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://b5aewrm5subvx" path="res://assets/textures/entities/player/player_run.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://c04m5hne1l4m8" path="res://assets/textures/items/weapons/melee_weapons.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dcy2inrflm616" path="res://scripts/weapon.gd" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://b6nux7a8573i2" path="res://assets/audio/weapons/weapon_swing_1.mp3" id="6_fjrip"]
@@ -338,6 +338,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
 motion_mode = 1
 script = ExtResource("1_g2els")
 
@@ -347,9 +348,8 @@ shape = SubResource("CapsuleShape2D_fjrip")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tuyoq")
-animation = &"idle_down"
+animation = &"walk_down"
 autoplay = "idle_down"
-frame_progress = 0.943907
 
 [node name="Sword" type="Node2D" parent="."]
 script = ExtResource("4_qlg0r")

@@ -24,6 +24,14 @@ Globals="*res://scripts/autoloads/globals.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "teal",
+"res://scenes/": "blue",
+"res://scripts/": "pink"
+}
+
 [global]
 
 tile_size=Vector2(16, 16)
@@ -33,6 +41,7 @@ tile_size=Vector2(16, 16)
 spawn_marker="A marker that denotes the default spawn location of a player in a level."
 player="This is you. :)"
 portal_marker="Marker used for linking levels together through portals."
+nav_region="The navigation region of the level."
 
 [input]
 
@@ -90,8 +99,9 @@ attack={
 
 2d_physics/layer_1="world"
 2d_physics/layer_2="interact"
+2d_physics/layer_3="entity"
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.0616, 0.0903467, 0.14, 1)
+environment/defaults/default_clear_color=Color(0.0705882, 0.0784314, 0.121569, 1)

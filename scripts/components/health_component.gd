@@ -1,3 +1,5 @@
+# Health component used to manage entity's health and handle damage.
+
 class_name  HealthComponent
 extends Area2D
 
@@ -7,15 +9,20 @@ signal died
 @export var max_health: int = 100
 @export var invincible: bool = false
 
+@export_group("Audio")
+@export var audio_enabled: bool = true
+@export var hit_sound_stream: AudioStream
+
 @export_group("Flash")
 @export var flash_enabled: bool = true
 @export var flash_length: float = 0.3
 @export var sprite: CanvasItem
-@export var flash_color: Color = Color(1, 0, 0, 1)
+@export var flash_color: Color = Color.RED
 
 var is_dead: bool = false
 
 @onready var current_health: int = max_health
+@onready var hit_sound: AudioStreamPlayer2D = $HitSound
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
@@ -25,6 +32,11 @@ func _ready() -> void:
 	timer.wait_time = flash_length
 	timer.timeout.connect(_on_timer_timeout)
 
+	if !hit_sound_stream:
+		audio_enabled = false
+	else:
+		hit_sound.stream = hit_sound_stream
+
 	if !sprite:
 		flash_enabled = false
 
@@ -32,6 +44,11 @@ func damage(amount: int) -> int:
 	if is_dead:
 		return current_health
 	
+	# Play hit sound.
+	if audio_enabled:
+		hit_sound.pitch_scale = randf_range(0.6, 1.4)
+		hit_sound.play()
+
 	# Flash the sprite, if there's a flash componnent connected.
 	if flash_enabled:
 		timer.start()
@@ -39,9 +56,9 @@ func damage(amount: int) -> int:
 
 	if invincible:
 		damaged.emit(0, current_health)
-	
-	current_health -= amount
-	damaged.emit(amount, current_health)
+	else:
+		current_health -= amount
+		damaged.emit(amount, current_health)
 
 	if current_health <= 0:
 		is_dead = true
@@ -50,4 +67,4 @@ func damage(amount: int) -> int:
 	return current_health
 
 func _on_timer_timeout():
-	sprite.modulate = Color(1, 1, 1, 1)
+	sprite.modulate = Color.WHITE

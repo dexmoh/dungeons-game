@@ -30,3 +30,7 @@ func open_and_close():
 		label_text = "Close"
 		open_sfx.play()
 		set_collision_layer_value(1, false)
+	
+	var navmesh = get_tree().get_first_node_in_group("nav_region")
+	if navmesh is NavigationRegion2D:
+		navmesh.bake_navigation_polygon()

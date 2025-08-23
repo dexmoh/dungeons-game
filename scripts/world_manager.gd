@@ -8,13 +8,13 @@ var current_level: Node
 var player: CharacterBody2D
 
 func _ready() -> void:
-	# Instantiate default level.
-	current_level = default_level_scene.instantiate()
-	add_child(current_level)
-
 	# Add the player.
 	player = player_scene.instantiate()
 	add_child(player)
+
+	# Instantiate default level.
+	current_level = default_level_scene.instantiate()
+	add_child(current_level)
 
 	# Spawn the player.
 	var spawn_marker: Node2D = get_tree().get_first_node_in_group("spawn_marker")
