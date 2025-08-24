@@ -12,13 +12,13 @@ uniform float blur = 0.15;
 void fragment() {
 	vec2 pixel_size = 1.0 / vec2(textureSize(ST, 0));
 	float offset = color_offset * pixel_size.x;
-	
+
 	// chromatic aberration
 	float channel_r = textureLod(ST, SCREEN_UV + vec2(offset, 0.0), blur).r;
 	float channel_g = textureLod(ST, SCREEN_UV, blur).g;
 	float channel_b = textureLod(ST, SCREEN_UV + vec2(-offset, 0.0), blur).b;
 	vec4 aberrate = vec4(channel_r, channel_g, channel_b, 1.0);
-	
+
 	// scanline flicker
 	float mix_value = sin((UV.y - (TIME * flicker_speed)) * 10.0) * flicker_intensity;
 	vec4 flicker = mix(aberrate, flicker_color, mix_value);
@@ -26,6 +26,6 @@ void fragment() {
 	// scanlines
 	float scanlines = sin(FRAGCOORD.y * scanlines_count) * scanlines_intensity;
 	vec4 final = mix(flicker, scanline_color, scanlines);
-	
+
 	COLOR = final;
 }

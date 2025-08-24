@@ -8,6 +8,8 @@ var current_level: Node
 var player: CharacterBody2D
 
 func _ready() -> void:
+	randomize()
+	
 	# Add the player.
 	player = player_scene.instantiate()
 	add_child(player)

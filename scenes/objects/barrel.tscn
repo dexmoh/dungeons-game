@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://btgve1kj6ecxh"]
 
-[ext_resource type="Script" uid="uid://c1tgligl1n6ud" path="res://scripts/barrel.gd" id="1_1kn84"]
+[ext_resource type="Script" uid="uid://c1tgligl1n6ud" path="res://src/barrel.gd" id="1_1kn84"]
 [ext_resource type="Texture2D" uid="uid://bwwqnnjknwy5h" path="res://assets/textures/objects/decorations.png" id="1_ipomw"]
 [ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/components/health_component.tscn" id="2_1kn84"]
 [ext_resource type="AudioStream" uid="uid://b7wlkw44i43ce" path="res://assets/audio/wood_hit.wav" id="4_kldud"]

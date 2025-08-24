@@ -7,7 +7,7 @@ func _on_health_component_died() -> void:
 
 	# Rebake the navmesh after we remove the barrel.
 	# This is awful, but lets leave it like this until it becomes a problem.
-	var navmesh = get_tree().get_first_node_in_group("nav_region")
+	var navmesh = get_parent()
 	if navmesh is NavigationRegion2D:
 		navmesh.bake_navigation_polygon()
 

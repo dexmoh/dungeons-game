@@ -5,11 +5,20 @@ extends Interactable
 
 @onready var open_sfx: AudioStreamPlayer2D = $DoorOpenAudio
 @onready var close_sfx: AudioStreamPlayer2D = $DoorCloseAudio
+@onready var vertical_nav_link: NavigationLink2D = $VerticalNavLink
+@onready var horizontal_nav_link: NavigationLink2D = $HorizontalNavLink
 
 func _ready() -> void:
+	label_text = "Open"
+
 	if is_open:
-		is_open = !is_open
-		open_and_close()
+		# Open the door.
+		door_sprite.region_rect.position.x += Globals.tile_size.x
+		label_text = "Close"
+		set_collision_layer_value(1, false)
+	
+	horizontal_nav_link.enabled = is_open
+	vertical_nav_link.enabled = is_open
 
 func interact(_src: Node2D):
 	open_and_close()
@@ -31,6 +40,5 @@ func open_and_close():
 		open_sfx.play()
 		set_collision_layer_value(1, false)
 	
-	var navmesh = get_tree().get_first_node_in_group("nav_region")
-	if navmesh is NavigationRegion2D:
-		navmesh.bake_navigation_polygon()
+	horizontal_nav_link.enabled = is_open
+	vertical_nav_link.enabled = is_open

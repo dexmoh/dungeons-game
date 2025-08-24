@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbe5v7545bobh"]
 
-[ext_resource type="Script" uid="uid://j71pmp7fblk6" path="res://scripts/interactables/interactable_door.gd" id="1_uvdjg"]
+[ext_resource type="Script" uid="uid://j71pmp7fblk6" path="res://src/interactables/interactable_door.gd" id="1_uvdjg"]
 [ext_resource type="Texture2D" uid="uid://dtyngks7clbet" path="res://assets/textures/objects/doors.png" id="2_uvdjg"]
 [ext_resource type="AudioStream" uid="uid://ch6rec38wcnhn" path="res://assets/audio/door_open.wav" id="3_la1wf"]
 [ext_resource type="AudioStream" uid="uid://cq4ggafvllb3m" path="res://assets/audio/door_close.wav" id="4_18pbm"]
@@ -31,3 +31,13 @@ bus = &"SFX"
 [node name="DoorCloseAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_18pbm")
 bus = &"SFX"
+
+[node name="VerticalNavLink" type="NavigationLink2D" parent="."]
+enabled = false
+start_position = Vector2(0, -16)
+end_position = Vector2(0, 16)
+
+[node name="HorizontalNavLink" type="NavigationLink2D" parent="."]
+enabled = false
+start_position = Vector2(-16, 0)
+end_position = Vector2(16, 0)

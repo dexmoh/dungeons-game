@@ -1,10 +1,10 @@
 [gd_scene load_steps=50 format=3 uid="uid://bknk8yg4qb763"]
 
 [ext_resource type="Texture2D" uid="uid://cykfwchqcwwyk" path="res://assets/textures/entities/player/player_idle.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://c0f44wvamc88c" path="res://scripts/player_controller.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://c0f44wvamc88c" path="res://src/player_controller.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://b5aewrm5subvx" path="res://assets/textures/entities/player/player_run.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://c04m5hne1l4m8" path="res://assets/textures/items/weapons/melee_weapons.png" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://dcy2inrflm616" path="res://scripts/weapon.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://dcy2inrflm616" path="res://src/weapon.gd" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://b6nux7a8573i2" path="res://assets/audio/weapons/weapon_swing_1.mp3" id="6_fjrip"]
 [ext_resource type="AudioStream" uid="uid://bhs3d73yjp1s" path="res://assets/audio/weapons/weapon_swing_2.mp3" id="7_smehm"]
 
