@@ -1,12 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4d4wct4t154q"]
+[gd_scene load_steps=24 format=3 uid="uid://c4d4wct4t154q"]
 
+[ext_resource type="Script" uid="uid://c0ldi3lck865l" path="res://src/entities/skeleton.gd" id="1_34uab"]
 [ext_resource type="Texture2D" uid="uid://pewpox3rcuxn" path="res://assets/textures/entities/skeleton.png" id="1_qxc4t"]
+[ext_resource type="PackedScene" uid="uid://bnp1ebkhlabic" path="res://scenes/objects/remains.tscn" id="2_87w4c"]
 [ext_resource type="PackedScene" uid="uid://c2xqcv0u882e7" path="res://scenes/components/health_component.tscn" id="2_l7dce"]
 [ext_resource type="AudioStream" uid="uid://cbk2qlppdecc8" path="res://assets/audio/entity_hit.wav" id="3_r3082"]
 [ext_resource type="Script" uid="uid://ckk3hymu1aas1" path="res://src/fsm/state_machine.gd" id="5_ed2xj"]
 [ext_resource type="Script" uid="uid://btfnnf5d4ep8l" path="res://src/fsm/state.gd" id="6_jsnsc"]
 [ext_resource type="Script" uid="uid://cnp5wfapp5ywh" path="res://src/fsm/undead_idle_state.gd" id="6_sb2t5"]
 [ext_resource type="Script" uid="uid://0libej2ct2ft" path="res://src/fsm/undead_wander_state.gd" id="7_sb2t5"]
+[ext_resource type="PackedScene" uid="uid://cik5w6l67emf7" path="res://scenes/components/health_indicator_component.tscn" id="10_5gv7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7dce"]
 radius = 3.0
@@ -99,12 +102,13 @@ animations = [{
 }]
 
 [node name="Skeleton" type="CharacterBody2D"]
+script = ExtResource("1_34uab")
+remains_tscn = ExtResource("2_87w4c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_l7dce")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_l7dce")]
-invincible = true
 hit_sound_stream = ExtResource("3_r3082")
 sprite = NodePath("../AnimatedSprite2D")
 
@@ -143,3 +147,8 @@ metadata/_custom_type_script = "uid://btfnnf5d4ep8l"
 [node name="UndeadFollowState" type="Node" parent="UndeadStateMachine"]
 script = ExtResource("6_jsnsc")
 metadata/_custom_type_script = "uid://btfnnf5d4ep8l"
+
+[node name="HealthIndicatorComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("10_5gv7q")]
+health_component = NodePath("../HealthComponent")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

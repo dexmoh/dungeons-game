@@ -42,6 +42,10 @@ spawn_marker="A marker that denotes the default spawn location of a player in a 
 player="This is you. :)"
 portal_marker="Marker used for linking levels together through portals."
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
 [input]
 
 move_up={
